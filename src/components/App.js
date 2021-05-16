@@ -4,13 +4,13 @@ import Footer from "./Footer";
 import Main from "./Main";
 import {useState, useEffect} from 'react'
 import ImagePopup from "./ImagePopup";
-import {Switch, Route, Redirect, useHistory} from 'react-router-dom'
+import {Switch, Route, useHistory} from 'react-router-dom'
 import api from "../utils/api";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
-import Login from "./login";
+import Login from "./Login";
 import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
 import InfoToolTipPopup from "./InfoToolTipPopup";
@@ -50,6 +50,8 @@ function App() {
                     }
                     const email = res.data.email
                     setUserInfo({email})
+                }).catch((err) => {
+                    console.log('Ошибка при проверки токена', err)
                 })
             }
             }
@@ -202,7 +204,9 @@ function App() {
                                 text="Войти"/>
                         <Register onRegister={handleRegister}/>
                     </Route>
-                    {isLoggedIn ? <ProtectedRoute path="/">
+                    <ProtectedRoute
+                                    isLoggedIn={isLoggedIn}
+                                    path="/">
                         <Header redirect="/"
                                 isLoggedIn={isLoggedIn}
                                 text="Выйти"
@@ -215,7 +219,7 @@ function App() {
                               onCardClick={handleCardClick} onEditAvatar={handleEditAvatarClick}
                               onEditProfile={handleEditProfileClick}
                               onAddPlace={handleAddPlaceClick}/>
-                    </ProtectedRoute> : <Redirect to="/sign-in"/>}
+                    </ProtectedRoute>
                 </Switch>
                 <Footer/>
 

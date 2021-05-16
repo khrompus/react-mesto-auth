@@ -28,7 +28,7 @@ export default function Card(props) {
             <img src={props.card.link} alt={props.card.name} onClick={handleClick} className="grid__image"/>
             <button className={cardDeleteButtonClassName} onClick={handleDeleteCard} type="button"/>
             <div className="grid__text-group">
-                <h2 className="grid__text" id="gridText">{props.card.name}</h2>
+                <h2 className="grid__text">{props.card.name}</h2>
                 <div className="grid__element-group">
                     <button type="button" onClick={handleLikeClick} className={cardLikeButtonClassName}/>
                     <p className="grid__number-like">{props.card.likes.length}</p>
